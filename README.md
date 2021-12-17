@@ -43,3 +43,5 @@ docker run -it --rm \
   -w /syntax \
   $MYHUBID/${MYIMG}:${TAG} do master.do
 ```
+
+The Docker image is available at [https://hub.docker.com/r/aeadataeditor/jep-2021-1239](https://hub.docker.com/r/aeadataeditor/jep-2021-1239).
