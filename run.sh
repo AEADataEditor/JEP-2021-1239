@@ -21,7 +21,7 @@ else
 fi
 
 # name of the file to run
-file=code/main.do
+file=syntax/master.do
 
 
 echo "================================"
@@ -48,8 +48,11 @@ else
 fi
 
 # ensure that the directories are writable by Docker
-chmod a+rwX code code/*
+mkdir syntax data output cleandata
+chmod a+rwX syntax syntax/*
 chmod a+rwX data 
+chmod a+rwX output
+chmod a+rwX cleandata
 
 # a few names
 basefile=$(basename $file)
@@ -61,9 +64,12 @@ logfile=${file%*.do}.log
 
 time docker run $DOCKEROPTS \
   -v ${STATALIC}:/usr/local/stata/stata.lic \
-  -v $(pwd)/${codedir}:/code \
+  -v $(pwd)/syntax:/syntax \
   -v $(pwd)/data:/data \
-  $DOCKERIMG:$TAG -b $basefile
+  -v $(pwd)/output:/output \
+  -v $(pwd)/cleandata:/cleandata \
+  -w /syntax \
+  $MYHUBID/${MYIMG}:${TAG}
 
 # print and check logfile
 

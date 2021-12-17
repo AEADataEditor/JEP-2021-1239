@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.2
 ARG SRCVERSION=17
-ARG SRCTAG=2021-10-13
+ARG SRCTAG=2021-11-17
 ARG SRCHUBID=dataeditors
 
 FROM ${SRCHUBID}/stata${SRCVERSION}:${SRCTAG}
@@ -13,7 +13,7 @@ RUN --mount=type=secret,id=statalic \
 
 # install any packages into the home directory as the user,
 USER statauser
-COPY setup.do /setup.do
+COPY syntax/setup.do /setup.do
 WORKDIR /home/statauser
 RUN /usr/local/stata/stata do /setup.do | tee setup.$(date +%F).log
 
